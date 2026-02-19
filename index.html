@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Lab Archive</title> 
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <h1 class="archive-title">Idea Lab<br>Archive</h1>
+                <div class="archive-meta">
+                    <span class="archive-tag">Hardware Index</span>
+                    <p class="archive-subtitle">A curated index of hardware components</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter / Sort Controls -->
+    <div class="controls">
+        <div class="container">
+            <div class="controls-bar">
+                <input type="text" id="searchInput" class="control-input" placeholder="Search..." aria-label="Search">
+                <select id="categoryFilter" class="control-select" aria-label="Category">
+                    <option value="all">All</option>
+                    <option value="Processing Units">Processing Units</option>
+                    <option value="Vision System">Vision System</option>
+                    <option value="Wireless Communication">Wireless Communication</option>
+                    <option value="Human Machine Interface">Human Machine Interface</option>
+                    <option value="Actuation">Actuation</option>
+                    <option value="Sensors">Sensors</option>
+                    <option value="Power Management">Power Management</option>
+                    <option value="Passive Components">Passive Components</option>
+                    <option value="Tools">Tools</option>
+                    <option value="Connectivity">Connectivity</option>
+                </select>
+                <select id="sortSelect" class="control-select" aria-label="Sort">
+                    <option value="id-asc">ID ↑</option>
+                    <option value="id-desc">ID ↓</option>
+                    <option value="name-asc">A → Z</option>
+                    <option value="name-desc">Z → A</option>
+                    <option value="category-asc">Category</option>
+                </select>
+                <span class="controls-count" id="controlsCount"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archive Grid -->
+    <main class="archive">
+        <div class="container">
+            <div class="component-grid" id="componentGrid">
+                <!-- Components will be dynamically rendered here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Component Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <div class="modal-meta">
+                    <div>
+                        <h2 class="modal-title" id="modalTitle"></h2>
+                        <p class="modal-category" id="modalCategory"></p>
+                    </div>
+                    <div class="modal-availability" id="modalAvailability">
+                        <span class="avail-dot" id="availDot"></span>
+                        <span class="avail-label" id="availLabel"></span>
+                    </div>
+                </div>
+                <button class="book-btn" id="bookBtn" onclick="openBookingForm()">Book Component</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Form Popup -->
+    <div class="booking-overlay" id="bookingOverlay">
+        <div class="booking-form">
+            <div class="booking-header">
+                <span class="booking-title">Reserve Component</span>
+                <span class="booking-id" id="bookingComponentId"></span>
+                <span class="modal-close" id="bookingClose">&times;</span>
+            </div>
+            <div class="booking-fields">
+                <div class="field-group">
+                    <label class="field-label" for="fieldName">Full Name</label>
+                    <input type="text" id="fieldName" class="field-input" placeholder="Enter your name" autocomplete="off">
+                </div>
+                <div class="field-group">
+                    <label class="field-label" for="fieldClass">Class / Department</label>
+                    <input type="text" id="fieldClass" class="field-input" placeholder="e.g. S6 ECE B" autocomplete="off">
+                </div>
+                <div class="field-group">
+                    <label class="field-label" for="fieldPurpose">Purpose</label>
+                    <textarea id="fieldPurpose" class="field-input field-textarea" placeholder="Briefly describe your project or use case" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="booking-actions">
+                <button class="booking-submit" id="bookingSubmit" onclick="submitBooking()">Confirm Booking</button>
+                <button class="booking-cancel" onclick="closeBookingForm()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Confirmation Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
