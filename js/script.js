@@ -70,7 +70,7 @@ function renderArchive(items) {
                     class="component-image"
                     src="${component.imagePath}"
                     alt="${component.name}"
-                    onerror="this.src='images/components/placeholder.jpg'"
+                    onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22800%22><rect width=%22800%22 height=%22800%22 fill=%22%23222%22/><text x=%2250%25%22 y=%2250%25%22 font-family=%22Arial%22 font-size=%2228%22 fill=%22%23555%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>No Image</text></svg>'"
                 >
             </div>
             <div class="component-info">
