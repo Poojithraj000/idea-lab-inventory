@@ -1,78 +1,56 @@
-// ===================================
-// VISUAL COMPONENT ARCHIVE
-// Image-First Editorial Display
-// ===================================
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTnqME00Upohwhs-mONoAh4j_HBOSlWaT96kwUqs9E-6WpK90ZwveIODqEi0ukg9x_pJlpmOq40vJVh/pub?gid=0&single=true&output=csv";
 
-// Generate SVG placeholder
-function generatePlaceholder(text, color = "#2c3e50") {
-    const svg = `<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-        <rect width="800" height="800" fill="${color}"/>
-        <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="middle">${text}</text>
-    </svg>`;
-    return `data:image/svg+xml;base64,${btoa(svg)}`;
+// Live component data — loaded from Google Sheets
+let components = [];
+
+// Parse CSV text into array of component objects
+function parseCSV(text) {
+    const lines = text.trim().split("\n");
+    const headers = lines[0].split(",").map(h => h.trim().toLowerCase());
+    return lines.slice(1).map(line => {
+        // Handle commas inside quoted fields
+        const cols = [];
+        let current = "";
+        let inQuotes = false;
+        for (let ch of line) {
+            if (ch === '"') { inQuotes = !inQuotes; }
+            else if (ch === "," && !inQuotes) { cols.push(current.trim()); current = ""; }
+            else { current += ch; }
+        }
+        cols.push(current.trim());
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = cols[i] || "");
+        return {
+            id:        obj["id"],
+            name:      obj["name"],
+            category:  obj["category"],
+            stock:     obj["stock"] || "available",
+            imagePath: obj["imagepath"] || obj["imagePath"] || ""
+        };
+    }).filter(c => c.id); // skip empty rows
 }
 
-const components = [
-    { id: "IL001", name: "Arduino UNO",                        category: "Processing Units",        stock: "available",   imagePath: "images/components/arduino-uno.jpg" },
-    { id: "IL002", name: "Arduino Mega",                       category: "Processing Units",        stock: "available",   imagePath: "images/components/arduino-mega.jpg" },
-    { id: "IL003", name: "STM32 Development Board",            category: "Processing Units",        stock: "available",   imagePath: "images/components/stm32.jpg" },
-    { id: "IL004", name: "ESP8266 Development Board",          category: "Processing Units",        stock: "available",   imagePath: "images/components/esp8266-dev.jpg" },
-    { id: "IL005", name: "Jetson Orin Nano",                   category: "Processing Units",        stock: "unavailable", imagePath: "images/components/jetson-orin-nano.jpg" },
-    { id: "IL006", name: "Raspberry Pi",                       category: "Processing Units",        stock: "available",   imagePath: "images/components/raspberry-pi.jpg" },
-    { id: "IL007", name: "Raspberry Pi Camera V2",             category: "Vision System",           stock: "available",   imagePath: "images/components/Raspberry Pi Camera V2.jpg" },
-    { id: "IL008", name: "433 MHz RF Transmitter and Receiver",category: "Wireless Communication",  stock: "available",   imagePath: "images/components/433 MHz RF Transmitter and Receiver.jpg" },
-    { id: "IL009", name: "XBee Pro S2C",                       category: "Wireless Communication",  stock: "available",   imagePath: "images/components/XBee Pro S2C.jpg" },
-    { id: "IL010", name: "ESP32",                              category: "Wireless Communication",  stock: "available",   imagePath: "images/components/ESP32.jpg" },
-    { id: "IL011", name: "LTE GNSS Module",                    category: "Wireless Communication",  stock: "available",   imagePath: "images/components/LTE GNSS Module.jpg" },
-    { id: "IL012", name: "Nextion HMI Display",                category: "Human Machine Interface", stock: "available",   imagePath: "images/components/Nextion HMI Display.jpg" },
-    { id: "IL013", name: "16x2 LCD",                           category: "Human Machine Interface", stock: "available",   imagePath: "images/components/16x2 LCD.jpg" },
-    { id: "IL014", name: "I2C LCD Backpack",                   category: "Human Machine Interface", stock: "available",   imagePath: "images/components/I2C LCD Backpack.jpg" },
-    { id: "IL015", name: "Push Buttons",                       category: "Human Machine Interface", stock: "available",   imagePath: "images/components/Push Buttons.jpg" },
-    { id: "IL016", name: "Matrix Keypad",                      category: "Human Machine Interface", stock: "available",   imagePath: "images/components/Matrix Keypad.jpg" },
-    { id: "IL017", name: "Rotary Encoder",                     category: "Human Machine Interface", stock: "available",   imagePath: "images/components/Rotary Encoder.jpg" },
-    { id: "IL018", name: "Joystick",                           category: "Human Machine Interface", stock: "available",   imagePath: "images/components/Joystick.jpg" },
-    { id: "IL019", name: "DC Motor",                           category: "Actuation",               stock: "available",   imagePath: "images/components/DC Motor.jpg" },
-    { id: "IL020", name: "L293D Motor Driver",                 category: "Actuation",               stock: "available",   imagePath: "images/components/L293D Motor Driver.jpg" },
-    { id: "IL021", name: "28BYJ-48 Stepper Motor",             category: "Actuation",               stock: "available",   imagePath: "images/components/28BYJ-48 Stepper Motor.jpg" },
-    { id: "IL022", name: "ULN2003 Stepper Driver Board",       category: "Actuation",               stock: "available",   imagePath: "images/components/ULN2003 Stepper Driver Board.jpg" },
-    { id: "IL023", name: "Relay Module",                       category: "Actuation",               stock: "available",   imagePath: "images/components/Relay Module.jpg" },
-    { id: "IL024", name: "Buzzers",                            category: "Actuation",               stock: "available",   imagePath: "images/components/Buzzers.jpg" },
-    { id: "IL025", name: "DHT11",                              category: "Sensors",                 stock: "available",   imagePath: "images/components/DHT11.jpg" },
-    { id: "IL026", name: "HC-SR04 Ultrasonic",                 category: "Sensors",                 stock: "available",   imagePath: "images/components/HC-SR04 Ultrasonic.jpg" },
-    { id: "IL027", name: "Hall Effect Sensor",                 category: "Sensors",                 stock: "available",   imagePath: "images/components/Hall Effect Sensor.jpg" },
-    { id: "IL028", name: "Reed Switch",                        category: "Sensors",                 stock: "available",   imagePath: "images/components/Reed Switch.jpg" },
-    { id: "IL029", name: "Tilt Switch",                        category: "Sensors",                 stock: "available",   imagePath: "images/components/Tilt Switch.jpg" },
-    { id: "IL030", name: "LDR Module",                         category: "Sensors",                 stock: "available",   imagePath: "images/components/LDR Module.jpg" },
-    { id: "IL031", name: "Laser Module",                       category: "Sensors",                 stock: "available",   imagePath: "images/components/Laser Module.jpg" },
-    { id: "IL032", name: "IR Transmitter",                     category: "Sensors",                 stock: "available",   imagePath: "images/components/IR Transmitter.jpg" },
-    { id: "IL033", name: "IR Receiver",                        category: "Sensors",                 stock: "available",   imagePath: "images/components/IR Receiver.jpg" },
-    { id: "IL034", name: "Microphone Sensor",                  category: "Sensors",                 stock: "available",   imagePath: "images/components/Microphone Sensor.jpg" },
-    { id: "IL035", name: "Digital Temperature Module",         category: "Sensors",                 stock: "available",   imagePath: "images/components/Digital Temperature Module.jpg" },
-    { id: "IL036", name: "Flame Sensor",                       category: "Sensors",                 stock: "available",   imagePath: "images/components/Flame Sensor.jpg" },
-    { id: "IL037", name: "Tracking Module",                    category: "Sensors",                 stock: "available",   imagePath: "images/components/Tracking Module.jpg" },
-    { id: "IL038", name: "Comparator Modules",                 category: "Sensors",                 stock: "available",   imagePath: "images/components/Comparator Modules.jpg" },
-    { id: "IL039", name: "TP4056 Lithium Charger",             category: "Power Management",        stock: "available",   imagePath: "images/components/TP4056 Lithium Charger.jpg" },
-    { id: "IL040", name: "LM2596 Buck Converter",              category: "Power Management",        stock: "available",   imagePath: "images/components/LM2596 Buck Converter.jpg" },
-    { id: "IL041", name: "XL6009 Boost Converter",             category: "Power Management",        stock: "available",   imagePath: "images/components/XL6009 Boost Converter.jpg" },
-    { id: "IL042", name: "Pi USB Power Adapter",               category: "Power Management",        stock: "available",   imagePath: "images/components/Pi USB Power Adapter.jpg" },
-    { id: "IL043", name: "5V Adapters",                        category: "Power Management",        stock: "available",   imagePath: "images/components/5V Adapters.jpg" },
-    { id: "IL044", name: "Resistor Kit",                       category: "Passive Components",      stock: "available",   imagePath: "images/components/Resistor Kit.jpg" },
-    { id: "IL045", name: "Electrolytic Capacitor Kit",         category: "Passive Components",      stock: "available",   imagePath: "images/components/Electrolytic Capacitor Kit.jpg" },
-    { id: "IL046", name: "Header Pins",                        category: "Passive Components",      stock: "available",   imagePath: "images/components/Header Pins.jpg" },
-    { id: "IL047", name: "Multimeter",                         category: "Tools",                   stock: "available",   imagePath: "images/components/Multimeter.jpg" },
-    { id: "IL048", name: "Tweezers",                           category: "Tools",                   stock: "available",   imagePath: "images/components/Tweezers.jpg" },
-    { id: "IL049", name: "Battery Holder",                     category: "Tools",                   stock: "available",   imagePath: "images/components/Battery Holder.jpg" },
-    { id: "IL050", name: "Wire Stripper and Cutter",           category: "Tools",                   stock: "available",   imagePath: "images/components/Wire Stripper and Cutter.jpg" },
-    { id: "IL051", name: "Switches",                           category: "Tools",                   stock: "available",   imagePath: "images/components/Switches.jpg" },
-    { id: "IL052", name: "Magnifying Glass",                   category: "Tools",                   stock: "available",   imagePath: "images/components/Magnifying Glass.jpg" },
-    { id: "IL053", name: "USB Cables",                         category: "Connectivity",            stock: "available",   imagePath: "images/components/USB Cables.jpg" },
-    { id: "IL054", name: "Jumper Wires",                       category: "Connectivity",            stock: "available",   imagePath: "images/components/Jumper Wires.jpg" },
-    { id: "IL055", name: "Audio Video Cables and Connectors",  category: "Connectivity",            stock: "available",   imagePath: "images/components/Audio Video Cables and Connectors.jpg" }
-];
+// Fetch components from Google Sheets and initialise the page
+async function loadComponents() {
+    const grid = document.getElementById("componentGrid");
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:4rem 0;font-size:var(--font-sm);text-transform:uppercase;letter-spacing:0.1em;">Loading components...</p>';
 
+    try {
+        const res  = await fetch(SHEET_CSV_URL);
+        const text = await res.text();
+        components = parseCSV(text);
+        filterAndSort();
+    } catch (err) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:4rem 0;font-size:var(--font-sm);text-transform:uppercase;letter-spacing:0.1em;">Failed to load components. Check your connection.</p>';
+        console.error("Failed to load Google Sheet:", err);
+    }
+}
 
 // Track which component is currently open in the modal
 let activeComponentId = null;
+
+
+
 
 // ===================================
 // Render Archive (accepts a subset)
@@ -272,7 +250,7 @@ function showToast(message) {
 // Initialize
 // ===================================
 document.addEventListener("DOMContentLoaded", function() {
-    filterAndSort(); // Initial render with default state
+    loadComponents(); // Fetch from Google Sheets and render
 
     // Filter & sort listeners
     document.getElementById("searchInput").addEventListener("input", filterAndSort);
