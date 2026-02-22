@@ -229,8 +229,8 @@ function submitBooking() {
 }
 
 function sendTelegramNotification(component, name, cls, purpose) {
-    const TELEGRAM_TOKEN = "8341436284:AAHAVDUAfDSS-VAHk4Z4ntggDzfIUYFFVNU";
-    const CHAT_ID        = "-1003893371930";
+    const TELEGRAM_TOKEN = "8382935369:AAHGrP6721taTpEc9M8x3R_mJcs6kvkPJp4";
+    const CHAT_ID        = "-1003601841724";
 
     const now = new Date();
     const timestamp = now.toLocaleString("en-IN", {
