@@ -21,7 +21,7 @@ const components = [
     { id: "IL006", name: "Raspberry Pi",                       category: "Processing Units",        stock: "limited",     imagePath: "images/components/raspberry-pi.jpg" },
     { id: "IL007", name: "Raspberry Pi Camera V2",             category: "Vision System",           stock: "available",   imagePath: "images/components/Raspberry Pi Camera V2.jpg" },
     { id: "IL008", name: "433 MHz RF Transmitter and Receiver",category: "Wireless Communication",  stock: "available",   imagePath: "images/components/433 MHz RF Transmitter and Receiver.jpg" },
-    { id: "IL009", name: "XBee Pro S2C",                       category: "Wireless Communication",  stock: "unavailable", imagePath: "images/components/XBee Pro S2C.jpg" },
+    { id: "IL009", name: "XBee Pro S2C",                       category: "Wireless Communication",  stock: "available",   imagePath: "images/components/XBee Pro S2C.jpg" },
     { id: "IL010", name: "ESP32",                              category: "Wireless Communication",  stock: "available",   imagePath: "images/components/ESP32.jpg" },
     { id: "IL011", name: "LTE GNSS Module",                    category: "Wireless Communication",  stock: "limited",     imagePath: "images/components/LTE GNSS Module.jpg" },
     { id: "IL012", name: "Nextion HMI Display",                category: "Human Machine Interface", stock: "available",   imagePath: "images/components/Nextion HMI Display.jpg" },
@@ -43,7 +43,7 @@ const components = [
     { id: "IL028", name: "Reed Switch",                        category: "Sensors",                 stock: "available",   imagePath: "images/components/Reed Switch.jpg" },
     { id: "IL029", name: "Tilt Switch",                        category: "Sensors",                 stock: "available",   imagePath: "images/components/Tilt Switch.jpg" },
     { id: "IL030", name: "LDR Module",                         category: "Sensors",                 stock: "available",   imagePath: "images/components/LDR Module.jpg" },
-    { id: "IL031", name: "Laser Module",                       category: "Sensors",                 stock: "unavailable", imagePath: "images/components/Laser Module.jpg" },
+    { id: "IL031", name: "Laser Module",                       category: "Sensors",                 stock: "available",   imagePath: "images/components/Laser Module.jpg" },
     { id: "IL032", name: "IR Transmitter",                     category: "Sensors",                 stock: "available",   imagePath: "images/components/IR Transmitter.jpg" },
     { id: "IL033", name: "IR Receiver",                        category: "Sensors",                 stock: "available",   imagePath: "images/components/IR Receiver.jpg" },
     { id: "IL034", name: "Microphone Sensor",                  category: "Sensors",                 stock: "available",   imagePath: "images/components/Microphone Sensor.jpg" },
@@ -67,7 +67,7 @@ const components = [
     { id: "IL052", name: "Magnifying Glass",                   category: "Tools",                   stock: "available",   imagePath: "images/components/Magnifying Glass.jpg" },
     { id: "IL053", name: "USB Cables",                         category: "Connectivity",            stock: "available",   imagePath: "images/components/USB Cables.jpg" },
     { id: "IL054", name: "Jumper Wires",                       category: "Connectivity",            stock: "available",   imagePath: "images/components/Jumper Wires.jpg" },
-    { id: "IL055", name: "Audio Video Cables and Connectors",  category: "Connectivity",            stock: "unavailable", imagePath: "images/components/Audio Video Cables and Connectors.jpg" }
+    { id: "IL055", name: "Audio Video Cables and Connectors",  category: "Connectivity",            stock: "available",   imagePath: "images/components/Audio Video Cables and Connectors.jpg" }
 ];
 
 
