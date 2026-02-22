@@ -239,14 +239,14 @@ function sendTelegramNotification(component, name, cls, purpose) {
     });
 
     const message =
-`📦 *New Booking — Idea Lab*
+`📦 <b>New Booking — Idea Lab</b>
 
-*Component:* ${component.name} \`(${component.id})\`
-*Category:* ${component.category}
+<b>Component:</b> ${component.name} <code>(${component.id})</code>
+<b>Category:</b> ${component.category}
 
-*Name:* ${name}
-*Class:* ${cls}
-*Purpose:* ${purpose}
+<b>Name:</b> ${name}
+<b>Class:</b> ${cls}
+<b>Purpose:</b> ${purpose}
 
 🕐 ${timestamp}`;
 
@@ -256,7 +256,7 @@ function sendTelegramNotification(component, name, cls, purpose) {
         body: JSON.stringify({
             chat_id: CHAT_ID,
             text: message,
-            parse_mode: "Markdown"
+            parse_mode: "HTML"
         })
     }).catch(err => console.warn("Telegram notification failed:", err));
 }
