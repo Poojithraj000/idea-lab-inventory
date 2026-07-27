@@ -1,74 +1,71 @@
 # Idea Lab Archive
 
-**A hardware inventory system built for the Innovation Lab at FISAT**
+A personal hobby project I built to solve a small but annoying problem at my college lab.
 
-Live Site: [idea-lab-fisat.vercel.app](https://idea-lab-fisat.vercel.app)
+Live: [idealab-archive.netlify.app](https://idealab-archive.netlify.app)
 
 ---
 
-## What This Is
+## Why I Built This
 
-The Idea Lab at FISAT has a large collection of electronic components that students borrow for their projects. Before this, there was no proper way to know what components were available, what was out of stock, or what category something belonged to.
+The Idea Lab at FISAT has a bunch of electronic components that students can borrow for their projects. The problem was simple but irritating. Nobody knew what was available. Students would walk in and ask, and the lab staff would have to check manually every single time.
 
-I built this as a clean, searchable web interface where anyone can open the link and instantly see the full hardware inventory, filter by category, and check what is currently available or not.
+I thought about this for a while and decided to just build something that fixes it. Nothing fancy. Just a clean page where anyone can open a link and see what is in the lab, what is available, and what is out of stock.
 
-The lab staff can update the stock status directly from a Google Sheet. No code changes needed. The website reads the sheet automatically every time the page loads.
+This is not an official college website or anything like that. I just built it as a side project because I felt like it needed to exist.
 
 ---
 
 ## Live Demo
 
-Open this link in your browser:
-
-**[https://idea-lab-fisat.vercel.app](https://idea-lab-fisat.vercel.app)**
+[https://idealab-archive.netlify.app](https://idealab-archive.netlify.app)
 
 ---
 
-## Features
+## What It Does
 
-**Search and Filter**
-Type any component name and the grid filters instantly. You can also filter by category like Sensors, Processing Units, Wireless Communication, and more.
+**Search**
+You can type any component name and the list filters instantly as you type.
 
-**Real Time Stock Status**
-Components are marked as Available, Limited, or Unavailable. These values come directly from a Google Sheet that the lab staff maintains.
+**Filter by Category**
+Components are grouped into categories like Sensors, Processing Units, Power Management, Tools, and more. You can filter to see just one category at a time.
 
-**Google Sheets Backend**
-The inventory data is stored in a published Google Sheet as a CSV feed. The website fetches this on every page load. No database, no backend server, no API key needed.
+**Stock Status**
+Each component shows whether it is Available, Limited, or Unavailable. This updates automatically from a Google Sheet that the lab staff edits.
 
-**Component Detail View**
-Clicking any component card opens a modal with the component image, category, and current stock status.
+**Book a Component**
+Clicking on any component opens a detail view. From there you can fill in your name, class, and purpose and submit a booking request.
 
-**55+ Components Catalogued**
-Everything from Arduino boards and Raspberry Pi accessories to sensors, power modules, and hand tools is listed with a real photo.
+**55+ Components Listed**
+Things like Arduino boards, Raspberry Pi accessories, sensors, power converters, jumper wires, multimeters, and hand tools are all in there with real photos.
 
 ---
 
-## Tech Stack
+## Tech Used
 
-| Part | Tool Used |
+| What | How |
 |---|---|
-| Structure | HTML5 |
-| Styling | Vanilla CSS |
-| Logic | Vanilla JavaScript |
-| Data Source | Google Sheets (CSV export) |
-| Hosting | Vercel |
+| Structure | HTML |
+| Styling | CSS |
+| Logic | JavaScript |
+| Data | Google Sheets (published as CSV) |
+| Hosting | Netlify |
 
-No frameworks. No build tools. Just plain HTML, CSS, and JavaScript.
-
----
-
-## How the Google Sheets Integration Works
-
-1. The lab staff maintains a Google Sheet with columns: `id`, `name`, `category`, `stock`, `imagePath`
-2. The sheet is published to the web as a CSV
-3. On every page load, `script.js` fetches the CSV, parses it row by row, and renders the inventory grid
-4. To update a component's status, the staff just edits the sheet and refreshes the site
-
-This approach means zero infrastructure cost and zero technical knowledge needed to maintain the data.
+No frameworks, no libraries, no backend server. I kept it as simple as possible.
 
 ---
 
-## Project Structure
+## The Google Sheets Part
+
+This is the part I am most happy with. Instead of hardcoding the component list or setting up a database, I connected it to a Google Sheet.
+
+The lab staff just opens the sheet, changes a stock value from `available` to `unavailable`, and the website reflects that change the next time someone loads the page. No login, no dashboard, no technical knowledge needed.
+
+The sheet is published as a CSV and the JavaScript fetches it on every page load. That is it.
+
+---
+
+## Folder Structure
 
 ```
 idea-lab-inventory/
@@ -79,46 +76,45 @@ idea-lab-inventory/
 │   └── script.js
 └── images/
     └── components/
-        └── (55+ component photos)
+        └── (photos of each component)
 ```
 
 ---
 
-## Categories Available
+## Categories in the Lab
 
 - Processing Units (Arduino UNO, Arduino Mega, Raspberry Pi, etc.)
-- Vision System (cameras, lenses)
+- Vision System
 - Wireless Communication (Bluetooth, WiFi, RF modules)
 - Human Machine Interface (LCD displays, keypads, etc.)
+- Actuation
 - Sensors (IR, flame, temperature, microphone, laser, etc.)
 - Power Management (buck converters, boost converters, lithium chargers)
 - Passive Components (resistor kits, capacitor kits, jumper wires)
 - Tools (multimeter, tweezers, wire stripper, magnifying glass)
-- Cables and Connectors
+- Connectivity (USB cables, audio video cables, jumper wires)
 
 ---
 
-## How to Run Locally
+## Run It Locally
 
-There is no build step. Just open the folder.
+No install or build step needed.
 
 ```
 git clone https://github.com/Poojithraj000/idea-lab-inventory.git
 cd idea-lab-inventory
 ```
 
-Then open `index.html` in your browser. It will fetch the live Google Sheet data automatically as long as you have internet.
+Open `index.html` in your browser. It will fetch the live Google Sheet data as long as you have internet.
 
 ---
 
 ## About
 
-Built by **Poojithraj**, a 3rd year Electronics and Communication Engineering student at FISAT.
+I am **Poojith Raj R**, a Final year ECE student at FISAT. I build small things when I see a problem worth solving. This was one of those.
 
-This started as a solution to a real problem. Lab staff had no easy way to tell students what components were available. Now they just share the link and students can check it themselves before visiting the lab.
+Feel free to look at the code, fork it, or use the idea for your own college lab.
 
 ---
 
-## Repository
-
-[github.com/Poojithraj000/idea-lab-inventory](https://github.com/Poojithraj000/idea-lab-inventory)
+*Built by Poojith Raj R*
