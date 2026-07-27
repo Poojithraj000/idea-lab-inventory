@@ -27,6 +27,10 @@ This is not an official college website or anything like that. I just built it a
 
 ---
 
+![Idea Lab Archive Preview](preview.png)
+
+---
+
 ## What It Does
 
 **Search**
