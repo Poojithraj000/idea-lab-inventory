@@ -1,4 +1,9 @@
 # Idea Lab Archive
+![Netlify](https://img.shields.io/badge/Hosted%20on-Netlify-00C7B7?style=flat&logo=netlify&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Google Sheets](https://img.shields.io/badge/Data-Google%20Sheets-34A853?style=flat&logo=googlesheets&logoColor=white)
 
 A personal hobby project I built to solve a small but annoying problem at my college lab.
 
@@ -62,6 +67,18 @@ This is the part I am most happy with. Instead of hardcoding the component list 
 The lab staff just opens the sheet, changes a stock value from `available` to `unavailable`, and the website reflects that change the next time someone loads the page. No login, no dashboard, no technical knowledge needed.
 
 The sheet is published as a CSV and the JavaScript fetches it on every page load. That is it.
+
+---
+
+## The Telegram Part
+
+When a student fills in the booking form and submits it, the lab staff gets an instant Telegram message with all the details. Name, class, component ID, and purpose.
+
+No email, no checking a dashboard, no missing requests. The message just shows up on their phone.
+
+I used the Telegram Bot API to send the message directly from the browser. No server needed. The bot token is used client side to post to the group chat the moment someone clicks Confirm Booking.
+
+It is a simple setup but it works really well in practice.
 
 ---
 
